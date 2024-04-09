@@ -1,28 +1,27 @@
-'use server';
+"use server";
+import Question from "@/database/question.model";
+import { connectToDatabase } from "../mongoose";
+import { SearchParams } from "./shared.types";
+import User from "@/database/user.model";
+import Answer from "@/database/answer.model";
+import Tag from "@/database/tag.model";
 
-import Question from '@/database/question.model';
-import { connectToDatabase } from '../mongoose';
-import { SearchParams } from './shared.types';
-import User from '@/database/user.model';
-import Answer from '@/database/answer.model';
-import Tag from '@/database/tag.model';
-
-const SearchableTypes = ['question', 'answer', 'user', 'tag'];
+const SearchableTypes = ["question", "answer", "user", "tag"];
 
 export async function globalSearch(params: SearchParams) {
   try {
     await connectToDatabase();
 
     const { query, type } = params;
-    const regexQuery = { $regex: query, $options: 'i' };
+    const regexQuery = { $regex: query, $options: "i" };
 
     let results = [];
 
     const modelsAndTypes = [
-      { model: Question, searchField: 'title', type: 'question' },
-      { model: User, searchField: 'name', type: 'user' },
-      { model: Answer, searchField: 'content', type: 'answer' },
-      { model: Tag, searchField: 'name', type: 'tag' }
+      { model: Question, searchField: "title", type: "question" },
+      { model: User, searchField: "name", type: "user" },
+      { model: Answer, searchField: "content", type: "answer" },
+      { model: Tag, searchField: "name", type: "tag" },
     ];
 
     const typeLower = type?.toLowerCase();
@@ -40,16 +39,16 @@ export async function globalSearch(params: SearchParams) {
         results.push(
           ...queryResults.map((item) => ({
             title:
-              type === 'answer'
+              type === "answer"
                 ? `Answers containing ${query}`
                 : item[searchField],
             type,
             id:
-              type === 'user'
+              type === "user"
                 ? item.clerkId
-                : type === 'answer'
+                : type === "answer"
                 ? item.question
-                : item._id
+                : item._id,
           }))
         );
       }
@@ -61,7 +60,7 @@ export async function globalSearch(params: SearchParams) {
 
       console.log({ modelInfo, type });
       if (!modelInfo) {
-        throw new Error('Invalid search type');
+        throw new Error("Invalid search type");
       }
 
       const queryResults = await modelInfo.model
@@ -70,16 +69,16 @@ export async function globalSearch(params: SearchParams) {
 
       results = queryResults.map((item) => ({
         title:
-          type === 'answer'
+          type === "answer"
             ? `Answers containing ${query}`
             : item[modelInfo.searchField],
         type,
         id:
-          type === 'user'
+          type === "user"
             ? item.clerkId
-            : type === 'answer'
+            : type === "answer"
             ? item.question
-            : item._id
+            : item._id,
       }));
     }
 
