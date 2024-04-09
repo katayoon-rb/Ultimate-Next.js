@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-// import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Editor } from "@tinymce/tinymce-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -23,9 +23,6 @@ import { Badge } from "@/components/ui/badge";
 import { QuestionsSchema } from "@/lib/validations";
 import { createQuestion } from "@/lib/actions/question.action";
 import { useTheme } from "@/context/ThemeProvider";
-// import page from "@/app/(root)/(home)/page";
-import { useRouter, usePathname } from "next/navigation";
-// import page from "@/app/(root)/(home)/page";
 
 interface Props {
   type?: string;
@@ -48,17 +45,14 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
   // In edit mode data will be shown by default
   const parsedQuestionDetails =
     questionDetails && JSON.parse(questionDetails || "");
-  // const groupedTags = parsedQuestionDetails?.tags.map((tag: any) => tag.name);
+  const groupedTags = parsedQuestionDetails?.tags.map((tag: any) => tag.name);
 
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
-      // title: parsedQuestionDetails?.title || "",
-      // explanation: parsedQuestionDetails?.content || "",
-      // tags: groupedTags || [],
-      title: "",
-      explanation: "",
-      tags: [],
+      title: parsedQuestionDetails?.title || "",
+      explanation: parsedQuestionDetails?.content || "",
+      tags: groupedTags || [],
     },
   });
 
@@ -95,6 +89,8 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
     } finally {
       setIsSubmitting(false);
     }
+    console.log(setIsSubmitting)
+    console.log(values);
   }
 
   const handleInputKeyDown = (
@@ -294,7 +290,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           {isSubmitting ? (
             <>{type === "edit" ? "Editing..." : "Posting..."}</>
           ) : (
-            <>{type === "edit" ? "Edit Question" : "Ask a Questioin"}</>
+            <>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
           )}
         </Button>
       </form>
