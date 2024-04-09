@@ -89,8 +89,6 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
     } finally {
       setIsSubmitting(false);
     }
-    console.log(setIsSubmitting)
-    console.log(values);
   }
 
   const handleInputKeyDown = (
