@@ -62,7 +62,7 @@ export async function POST(req: Request) {
       picture: image_url,
     });
 
-    return NextResponse.json({ message: "OK", user: mongoUser });
+    return NextResponse.json({ message: "Received", user: mongoUser });
   }
 
   // Updated User
@@ -81,14 +81,14 @@ export async function POST(req: Request) {
       path: `/profile/${id}`,
     });
 
-    return NextResponse.json({ message: "OK", user: mongoUser });
+    return NextResponse.json({ message: "Received", user: mongoUser });
   }
 
   // Deleted User
   if (eventType === "user.deleted") {
     const { id } = evt.data;
     const deletedUser = await deleteUser({ clerkId: id! });
-    return NextResponse.json({ message: "OK", user: deletedUser });
+    return NextResponse.json({ message: "Received", user: deletedUser });
   }
 
   return new Response("", { status: 201 });
