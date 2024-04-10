@@ -13,7 +13,7 @@ export const connectToDatabase = async () => {
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URL, { dbName: "devFlow" });
+    await mongoose.connect(process.env.MONGODB_URL, { dbName: "DevFlow" });
     isConnected = true;
     console.log("🍃 MongoDB is connected 🍃");
   } catch (error) {
