@@ -1,8 +1,9 @@
 "use client";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -11,11 +12,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
 import { ProfileSchema } from "@/lib/validations";
-import { usePathname, useRouter } from "next/navigation";
 import { updateUser } from "@/lib/actions/user.action";
 
 interface Props {
@@ -25,9 +25,7 @@ interface Props {
 
 const Profile = ({ clerkId, user }: Props) => {
   const parsedUser = JSON.parse(user);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const pathname = usePathname();
   const router = useRouter();
 
@@ -35,10 +33,9 @@ const Profile = ({ clerkId, user }: Props) => {
   const form = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      name: parsedUser.name || "",
+      name: parsedUser.name || parsedUser.username || "",
       username: parsedUser.username || "",
       portfolioWebsite: parsedUser.portfolioWebsite || "",
-      location: parsedUser.location || "",
       bio: parsedUser.bio || "",
     },
   });
@@ -54,12 +51,10 @@ const Profile = ({ clerkId, user }: Props) => {
           name: values.name,
           username: values.username,
           portfolioWebsite: values.portfolioWebsite,
-          location: values.location,
           bio: values.bio,
         },
         path: pathname,
       });
-
       router.back();
     } catch (error) {
       console.error(`❌ ${error} ❌`);
@@ -129,27 +124,6 @@ const Profile = ({ clerkId, user }: Props) => {
                 <Input
                   type='url'
                   placeholder='Your portfolio URL'
-                  {...field}
-                  className='no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px]'
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Location */}
-        <FormField
-          control={form.control}
-          name='location'
-          render={({ field }) => (
-            <FormItem className='space-y-3.5'>
-              <FormLabel className='paragraph-semibold text-dark400_light800'>
-                Location{" "}
-              </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder='Where are you from?'
                   {...field}
                   className='no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px]'
                 />

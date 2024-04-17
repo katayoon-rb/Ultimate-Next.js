@@ -31,11 +31,8 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
 
           <div className='mt-3'>
             <h2 className='h2-bold text-dark100_light900'>
-              {userInfo.user.name}
+              {userInfo.user.username}
             </h2>
-            <p className='paragraph-regular text-dark200_light800'>
-              @{userInfo.user.username}
-            </p>
 
             <div className='mt-5 flex flex-wrap items-center justify-start gap-5'>
               {/* Location */}
