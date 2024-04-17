@@ -11,7 +11,7 @@ interface StatsCardProps {
 const StatsCard = ({ imgUrl, value, title }: StatsCardProps) => {
   return (
     <div className='light-border background-light900_dark300 flex flex-wrap items-center justify-start gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200'>
-      <Image src={imgUrl} alt={title} width={40} height={50} />
+      <Image src={imgUrl} alt={title} width={30} height={40} />
       <div>
         <p className='paragraph-semibold text-dark200_light900'>{value}</p>
         <p className='body-medium text-dark400_light700'>{title}</p>
@@ -53,18 +53,21 @@ const Stats = ({ totalQuestions, totalAnswers, badges, reputation }: Props) => {
           </div>
         </div>
 
+        {/* Gold Badge */}
         <StatsCard
           imgUrl='/assets/icons/gold-medal.svg'
           value={badges.GOLD}
           title='Gold Badges'
         />
 
+        {/* Silver Badge */}
         <StatsCard
           imgUrl='/assets/icons/silver-medal.svg'
           value={badges.SILVER}
           title='Silver Badges'
         />
 
+        {/* Bronze Badge */}
         <StatsCard
           imgUrl='/assets/icons/bronze-medal.svg'
           value={badges.BRONZE}

@@ -22,11 +22,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
       <div className='flex w-full flex-col-reverse items-start justify-between sm:flex-row'>
         <div className='flex flex-col items-start gap-4 lg:flex-row'>
           <Image
-            src={
-              userInfo?.user.picture
-                .split("https%3A%2F%2Fimg.clerk.com%2F")[0]
-                .split("&w")[0]
-            }
+            src={userInfo?.user.picture}
             alt='profile picture'
             width={140}
             height={140}
@@ -39,14 +35,6 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             </h2>
 
             <div className='mt-5 flex flex-wrap items-center justify-start gap-5'>
-              {/* Location */}
-              {userInfo.user.location && (
-                <ProfileLink
-                  imgUrl='/assets/icons/location.svg'
-                  title={userInfo.user.location}
-                />
-              )}
-
               {/* Portfolio Website */}
               {userInfo.user.portfolioWebsite && (
                 <ProfileLink

@@ -2,8 +2,8 @@ import Link from "next/link";
 import RenderTag from "@/components/shared/RenderTag";
 import Metric from "@/components/shared/Metric";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
-// import { SignedIn } from "@clerk/nextjs";
-// import EditDeleteAction from '../shared/EditDeleteAction';
+import { SignedIn } from "@clerk/nextjs";
+import EditDeleteAction from "../shared/EditDeleteAction";
 
 interface QuestionProps {
   _id: string;
@@ -36,7 +36,7 @@ const QuestionCard = ({
   views,
   createdAt,
 }: QuestionProps) => {
-  // const showActionButtons = clerkId && clerkId === author.clerkId;
+  const showActionButtons = clerkId && clerkId === author.clerkId;
 
   return (
     <div className='card-wrapper rounded-[10px] p-9 sm:px-11'>
@@ -55,14 +55,11 @@ const QuestionCard = ({
         </div>
 
         {/* Edit / Delete */}
-        {/* <SignedIn>
+        <SignedIn>
           {showActionButtons && (
-            <EditDeleteAction
-              type="question"
-              itemId={JSON.stringify(_id)}
-            />
+            <EditDeleteAction type='question' itemId={JSON.stringify(_id)} />
           )}
-        </SignedIn> */}
+        </SignedIn>
       </div>
 
       {/* Tags */}

@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 import { QuestionsSchema } from "@/lib/validations";
-import { createQuestion } from "@/lib/actions/question.action";
+import { createQuestion, editQuestion } from "@/lib/actions/question.action";
 import { useTheme } from "@/context/ThemeProvider";
 
 interface Props {
@@ -59,32 +59,23 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
   async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmitting(true);
     try {
-      await createQuestion({
-        title: values.title,
-        content: values.explanation,
-        tags: values.tags,
-        author: JSON.parse(mongoUserId),
-        path: pathname,
-      });
-      router.push("/");
-
       if (type === "edit") {
-        // await editQuestion({
-        //   questionId: parsedQuestionDetails?._id,
-        //   title: values.title,
-        //   content: values.explanation,
-        //   path: pathname,
-        // });
-        // router.push(`/question/${parsedQuestionDetails._id}`);
+        await editQuestion({
+          questionId: parsedQuestionDetails?._id,
+          title: values.title,
+          content: values.explanation,
+          path: pathname,
+        });
+        router.push(`/question/${parsedQuestionDetails._id}`);
       } else {
-        // await createQuestion({
-        //   title: values.title,
-        //   content: values.explanation,
-        //   tags: values.tags,
-        //   author: JSON.parse(mongoUserId),
-        //   path: pathname,
-        // });
-        // router.push("/");
+        await createQuestion({
+          title: values.title,
+          content: values.explanation,
+          tags: values.tags,
+          author: JSON.parse(mongoUserId),
+          path: pathname,
+        });
+        router.push("/");
       }
     } finally {
       setIsSubmitting(false);
