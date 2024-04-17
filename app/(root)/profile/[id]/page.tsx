@@ -22,7 +22,11 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
       <div className='flex w-full flex-col-reverse items-start justify-between sm:flex-row'>
         <div className='flex flex-col items-start gap-4 lg:flex-row'>
           <Image
-            src={userInfo?.user.picture}
+            src={
+              userInfo?.user.picture
+                .split("https%3A%2F%2Fimg.clerk.com%2F")[0]
+                .split("&w")[0]
+            }
             alt='profile picture'
             width={140}
             height={140}
