@@ -2,25 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import RenderTag from "./RenderTag";
 // import { title } from "process";
-// import { getHotQuestions } from "@/lib/actions/question.action";
-// import { getTopPopularTags } from "@/lib/actions/tag.action";
-
-const hotQuestions = [
-  { _id: "1", title: "Hot Question 1" },
-  { _id: "2", title: "Hot Question 2" },
-  { _id: "3", title: "Hot Question 3" },
-  { _id: "4", title: "Hot Question 4" },
-];
-const popularTags = [
-  { _id: "1", name: "javascript", numberOfQuestions: 5 },
-  { _id: "2", name: "next", numberOfQuestions: 5 },
-  { _id: "3", name: "vue", numberOfQuestions: 2 },
-  { _id: "4", name: "redux", numberOfQuestions: 10 },
-];
+import { getHotQuestions } from "@/lib/actions/question.action";
+import { getTopPopularTags } from "@/lib/actions/tag.action";
 
 const RightSidebar = async () => {
-  //   const hotQuestions = await getHotQuestions();
-  //   const popularTags = await getTopPopularTags();
+  const hotQuestions = await getHotQuestions();
+  const popularTags = await getTopPopularTags();
 
   return (
     <aside className='background-light900_dark200 light-border custom-scrollbar no-scrollbar sticky right-0 top-0 flex h-screen w-[350px] flex-col overflow-y-auto border-l p-6 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden'>
