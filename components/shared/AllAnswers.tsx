@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getTimestamp } from "@/lib/utils";
 import Votes from "./Votes";
-// import ParseHTML from "./ParseHTML";
+import ParseHTML from "./ParseHTML";
 // import Pagination from './Pagination';
 
 interface Props {
@@ -75,7 +75,7 @@ const AllAnswers = async ({
               </div>
             </div>
 
-            {/* <ParseHTML data={answer.content} /> */}
+            <ParseHTML data={answer.content} />
           </article>
         ))}
       </div>
