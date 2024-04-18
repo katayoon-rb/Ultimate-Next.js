@@ -7,7 +7,7 @@ import Metric from "@/components/shared/Metric";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
 // import AllAnswers from "@/components/shared/AllAnswers";
-import Answer from "@/components/forms/Answer";
+// import Answer from "@/components/forms/Answer";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserByID } from "@/lib/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
@@ -107,11 +107,11 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
         filter={searchParams?.filter}
       /> */}
 
-      <Answer
+      {/* <Answer
         question={result.content}
         questionId={JSON.stringify(result._id)}
         authorId={JSON.stringify(mongoUser?._id)}
-      />
+      /> */}
     </>
   );
 };
