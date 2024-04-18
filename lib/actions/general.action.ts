@@ -1,7 +1,7 @@
 "use server";
-import Question from "@/database/question.model";
 import { connectToDatabase } from "../mongoose";
 import { SearchParams } from "./shared.types";
+import Question from "@/database/question.model";
 import User from "@/database/user.model";
 import Answer from "@/database/answer.model";
 import Tag from "@/database/tag.model";
@@ -11,10 +11,8 @@ const SearchableTypes = ["question", "answer", "user", "tag"];
 export async function globalSearch(params: SearchParams) {
   try {
     await connectToDatabase();
-
     const { query, type } = params;
     const regexQuery = { $regex: query, $options: "i" };
-
     let results = [];
 
     const modelsAndTypes = [
@@ -25,12 +23,7 @@ export async function globalSearch(params: SearchParams) {
     ];
 
     const typeLower = type?.toLowerCase();
-
     if (!typeLower || !SearchableTypes.includes(typeLower)) {
-      /**
-       * If user does not selected any filter in the global search...
-       * SEARCH ACROSS EVERYTHING
-       */
       for (const { model, searchField, type } of modelsAndTypes) {
         const queryResults = await model
           .find({ [searchField]: regexQuery })
@@ -53,9 +46,6 @@ export async function globalSearch(params: SearchParams) {
         );
       }
     } else {
-      /**
-       * Search in the specified model type
-       */
       const modelInfo = modelsAndTypes.find((item) => item.type === type);
 
       console.log({ modelInfo, type });
@@ -81,7 +71,6 @@ export async function globalSearch(params: SearchParams) {
             : item._id,
       }));
     }
-
     return JSON.stringify(results);
   } catch (error) {
     console.error(`❌ Error fetching global result: ${error} ❌`);
