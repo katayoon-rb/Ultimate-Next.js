@@ -20,8 +20,8 @@ import {
 export async function getQuestions(params: GetQuestionsParams) {
   try {
     connectToDatabase();
-    const { searchQuery } = params;
-    // const skipAmount = (page - 1) * pageSize;
+    const { searchQuery, filter, page = 1, pageSize = 20 } = params;
+    const skipAmount = (page - 1) * pageSize;
 
     const query: FilterQuery<typeof Question> = {};
     if (searchQuery) {
@@ -31,30 +31,31 @@ export async function getQuestions(params: GetQuestionsParams) {
       ];
     }
 
-    // let sortOptions = {};
-    // switch (filter) {
-    //   case "newest":
-    //     sortOptions = { createdAt: -1 };
-    //     break;
-    //   case "frequent":
-    //     sortOptions = { views: -1 };
-    //     break;
-    //   case "unanswered":
-    //     query.answers = { $size: 0 };
-    //     break;
-    //   default:
-    //     break;
-    // }
+    let sortOptions = {};
+    switch (filter) {
+      case "newest":
+        sortOptions = { createdAt: -1 };
+        break;
+      case "frequent":
+        sortOptions = { views: -1 };
+        break;
+      case "unanswered":
+        query.answers = { $size: 0 };
+        break;
+      default:
+        break;
+    }
 
     const questions = await Question.find()
       .populate({ path: "tags", model: Tag })
       .populate({ path: "author", model: User })
-      // .skip(skipAmount)
-      // .limit(pageSize)
+      .skip(skipAmount)
+      .limit(pageSize)
       .sort({ createdAt: -1 });
 
-    // const totalQuestions = await Question.countDocuments(query);
-    // const isNext = totalQuestions > skipAmount + questions.length;
+    const totalQuestions = await Question.countDocuments(query);
+    const isNext = totalQuestions > skipAmount + questions.length;
+    console.log(isNext, sortOptions);
     return { questions };
   } catch (error) {
     console.error(`❌ ${error} ❌`);
