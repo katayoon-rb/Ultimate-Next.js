@@ -101,7 +101,7 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
       options: {
         sort: { createdAt: -1 },
         skip: skipAmount,
-        limit: pageSize + 1, // +1 to check if there is next page
+        limit: pageSize + 1,
       },
       populate: [
         { path: "tags", model: Tag, select: "_id name" },

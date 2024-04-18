@@ -1,8 +1,8 @@
 import { UserFilters } from "@/constants/filters";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
-// import Pagination from "@/components/shared/Pagination";
 import Filter from "@/components/shared/Filter";
 import UserCard from "@/components/cards/UserCard";
+// import Pagination from "@/components/shared/Pagination";
 import { getAllUsers } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { Metadata } from "next";

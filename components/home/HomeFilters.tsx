@@ -18,7 +18,6 @@ const HomeFilters = () => {
         key: "filter",
         value: null,
       });
-
       router.push(newUrl, { scroll: false });
     } else {
       setActive(filter);
