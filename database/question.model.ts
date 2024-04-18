@@ -7,7 +7,7 @@ export interface IQuestion extends Document {
   views: number;
   upvotes: Schema.Types.ObjectId[];
   downvotes: Schema.Types.ObjectId[];
-  author: Schema.Types.ObjectId; // <- Not an array because there can only be one outhor that created that post
+  author: Schema.Types.ObjectId; // <- Not an array because there can only be one author that created that post
   answers: Schema.Types.ObjectId[];
   createdAt: Date;
 }

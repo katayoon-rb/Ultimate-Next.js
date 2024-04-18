@@ -6,8 +6,8 @@ import Votes from "@/components/shared/Votes";
 import Metric from "@/components/shared/Metric";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
+import AllAnswers from "@/components/shared/AllAnswers";
 // import Answer from "@/components/forms/Answer";
-// import AllAnswers from "@/components/shared/AllAnswers";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserByID } from "@/lib/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
@@ -36,7 +36,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
               className='rounded-full'
             />
             <p className='paragraph-semibold text-dark300_light700'>
-              {result.author.username}
+              {result.author}
             </p>
           </Link>
 
@@ -99,13 +99,13 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
         ))}
       </div>
 
-      {/* <AllAnswers
+      <AllAnswers
         questionId={result._id}
         userId={mongoUser?._id}
         totalAnswers={result.answers.length}
         page={searchParams?.page ? +searchParams.page : 1}
         filter={searchParams?.filter}
-      /> */}
+      />
 
       {/* <Answer
         question={result.content}
