@@ -6,8 +6,8 @@ import Votes from "@/components/shared/Votes";
 import Metric from "@/components/shared/Metric";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
-import AllAnswers from "@/components/shared/AllAnswers";
-// import Answer from "@/components/forms/Answer";
+// import AllAnswers from "@/components/shared/AllAnswers";
+import Answer from "@/components/forms/Answer";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserByID } from "@/lib/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
@@ -99,19 +99,19 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
         ))}
       </div>
 
-      <AllAnswers
+      {/* <AllAnswers
         questionId={result._id}
         userId={mongoUser?._id}
         totalAnswers={result.answers.length}
         page={searchParams?.page ? +searchParams.page : 1}
         filter={searchParams?.filter}
-      />
+      /> */}
 
-      {/* <Answer
+      <Answer
         question={result.content}
         questionId={JSON.stringify(result._id)}
         authorId={JSON.stringify(mongoUser?._id)}
-      /> */}
+      />
     </>
   );
 };
