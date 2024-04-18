@@ -4,10 +4,10 @@ import { URLProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import Votes from "@/components/shared/Votes";
 import Metric from "@/components/shared/Metric";
+import ParseHTML from "@/components/shared/ParseHTML";
+import RenderTag from "@/components/shared/RenderTag";
 // import Answer from "@/components/forms/Answer";
 // import AllAnswers from "@/components/shared/AllAnswers";
-// import ParseHTML from "@/components/shared/ParseHTML";
-// import RenderTag from "@/components/shared/RenderTag";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserByID } from "@/lib/actions/user.action";
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
@@ -19,7 +19,6 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
     mongoUser = await getUserByID({ userId: clerkId });
   }
   const result = await getQuestionById({ questionId: params.id });
-  console.log(result.author);
 
   return (
     <>
@@ -31,13 +30,13 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
           >
             <Image
               src={result.author.picture}
-              alt={`${result.author.name} picture`}
+              alt={`${result.author.username} picture`}
               width={22}
               height={22}
               className='rounded-full'
             />
             <p className='paragraph-semibold text-dark300_light700'>
-              {result.author.name}
+              {result.author.username}
             </p>
           </Link>
 
@@ -65,7 +64,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
           imgUrl='/assets/icons/clock.svg'
           alt='clock icon'
           value={` asked ${getTimestamp(result.createdAt)}`}
-          title='Asked'
+          title=''
           textStyle='small-medium text-dark400_light800'
         />
 
@@ -87,7 +86,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
       </div>
 
       {/* Question content */}
-      {/* <ParseHTML data={result.content} />
+      <ParseHTML data={result.content} />
 
       <div className='mt-8 flex flex-wrap gap-2'>
         {result.tags.map((tag: any) => (
@@ -98,7 +97,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
             showCount={false}
           />
         ))}
-      </div> */}
+      </div>
 
       {/* <AllAnswers
         questionId={result._id}
