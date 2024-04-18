@@ -23,7 +23,6 @@ const LocalSearchBar = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const query = searchParams.get("q");
 
   const [search, setSearch] = useState(query || "");
@@ -31,25 +30,26 @@ const LocalSearchBar = ({
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (search) {
-        const newUrl = formUrlQuery({
-          params: searchParams.toString(),
-          key: "q",
-          value: search,
-        });
-
-        router.push(newUrl, { scroll: false });
+        router.push(
+          formUrlQuery({
+            params: searchParams.toString(),
+            key: "q",
+            value: search,
+          }),
+          { scroll: false }
+        );
       } else {
         if (pathname === route) {
-          const newUrl = removeKeysFromQuery({
-            params: searchParams.toString(),
-            keysToRemove: ["q"],
-          });
-
-          router.push(newUrl, { scroll: false });
+          router.push(
+            removeKeysFromQuery({
+              params: searchParams.toString(),
+              keysToRemove: ["q"],
+            }),
+            { scroll: false }
+          );
         }
       }
     }, 500);
-
     return () => clearTimeout(delayDebounceFn);
   }, [search, route, pathname, router, searchParams, query]);
 
