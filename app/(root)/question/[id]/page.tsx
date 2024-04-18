@@ -30,13 +30,13 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
           >
             <Image
               src={result.author.picture}
-              alt={`${result.author.username} picture`}
+              alt={`${result.author.name} picture`}
               width={22}
               height={22}
               className='rounded-full'
             />
             <p className='paragraph-semibold text-dark300_light700'>
-              {result.author}
+              {result.author.name}
             </p>
           </Link>
 
