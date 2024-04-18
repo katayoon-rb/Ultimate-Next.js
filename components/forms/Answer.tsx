@@ -1,11 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Editor } from "@tinymce/tinymce-react";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -13,11 +8,14 @@ import {
   FormItem,
   FormMessage,
 } from "../ui/form";
-import { Button } from "../ui/button";
-import { toast } from "../ui/use-toast";
+import { z } from "zod";
+import { usePathname } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Editor } from "@tinymce/tinymce-react";
 import { useTheme } from "@/context/ThemeProvider";
 import { AnswerSchema } from "@/lib/validations";
 import { createAnswer } from "@/lib/actions/answer.action";
+import { Button } from "../ui/button";
 
 interface Props {
   question: string;
@@ -29,9 +27,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
   const pathname = usePathname();
   const editorRef = useRef();
   const { mode } = useTheme();
-
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmittingAI, setIsSubmittingAI] = useState(false);
 
   const form = useForm<z.infer<typeof AnswerSchema>>({
     resolver: zodResolver(AnswerSchema),
@@ -41,7 +37,6 @@ const Answer = ({ question, questionId, authorId }: Props) => {
   const handleCreateAnswer = async (values: z.infer<typeof AnswerSchema>) => {
     setIsSubmitting(true);
     try {
-      // Create question
       await createAnswer({
         content: values.answer,
         author: JSON.parse(authorId),
@@ -49,7 +44,6 @@ const Answer = ({ question, questionId, authorId }: Props) => {
         path: pathname,
       });
 
-      // Reset form
       form.reset();
       if (editorRef.current) {
         const editor = editorRef.current as any;
@@ -63,65 +57,12 @@ const Answer = ({ question, questionId, authorId }: Props) => {
     }
   };
 
-  // AI Feature
-  const generateAIAnswer = async () => {
-    if (!authorId) {
-      return toast({
-        title: "Please log in",
-        description: "You must be logged in to perform this action",
-      });
-    }
-    setIsSubmittingAI(true);
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
-        {
-          method: "POST",
-          body: JSON.stringify({ question }),
-        }
-      );
-
-      const aiAnswer = await response.json();
-      const formattedAnswer = aiAnswer.reply.replace(/\n/g, "<br />");
-
-      if (editorRef.current) {
-        const editor = editorRef.current as any;
-        editor.setContent(formattedAnswer);
-      }
-    } catch (error) {
-      console.error(`❌ ${error} ❌`);
-      throw error;
-    } finally {
-      setIsSubmittingAI(false);
-    }
-  };
-
   return (
     <div className='mt-8'>
       <div className='flex flex-col justify-between gap-5 sm:flex-row sm:items-center sm:gap-2'>
         <h4 className='paragraph-semibold text-dark400_light800'>
           Write your answer here
         </h4>
-
-        <Button
-          className='btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none'
-          onClick={generateAIAnswer}
-        >
-          {isSubmittingAI ? (
-            <>Generating...</>
-          ) : (
-            <Image
-              src='/assets/icons/stars.svg'
-              alt='star'
-              width={12}
-              height={12}
-              className='object-contain'
-            >
-              Generate AI Answer
-            </Image>
-          )}
-        </Button>
       </div>
       <Form {...form}>
         <form
