@@ -23,7 +23,9 @@ import Link from "next/link";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   // const { userId } = auth();
-  const result = await getQuestions({});
+  const result = await getQuestions({
+    searchQuery: searchParams.q,
+  });
 
   // if (searchParams?.filter === "recommended") {
   //   if (userId) {
