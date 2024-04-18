@@ -3,14 +3,14 @@ import Link from "next/link";
 import { URLProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import Votes from "@/components/shared/Votes";
+import Metric from "@/components/shared/Metric";
 // import Answer from "@/components/forms/Answer";
 // import AllAnswers from "@/components/shared/AllAnswers";
 // import ParseHTML from "@/components/shared/ParseHTML";
-// import Metric from "@/components/shared/Metric";
 // import RenderTag from "@/components/shared/RenderTag";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserByID } from "@/lib/actions/user.action";
-// import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
+import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 
 const QuestionDetail = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth();
@@ -19,7 +19,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
     mongoUser = await getUserByID({ userId: clerkId });
   }
   const result = await getQuestionById({ questionId: params.id });
-  console.log(mongoUser);
+  console.log(result.author);
 
   return (
     <>
@@ -31,7 +31,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
           >
             <Image
               src={result.author.picture}
-              alt={`${result.author.username} picture`}
+              alt={`${result.author.name} picture`}
               width={22}
               height={22}
               className='rounded-full'
@@ -60,7 +60,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
         </h2>
       </div>
 
-      {/* <div className='mb-8 mt-5 flex flex-wrap gap-4'>
+      <div className='mb-8 mt-5 flex flex-wrap gap-4'>
         <Metric
           imgUrl='/assets/icons/clock.svg'
           alt='clock icon'
@@ -84,7 +84,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
           title='Views'
           textStyle='small-medium text-dark400_light800'
         />
-      </div> */}
+      </div>
 
       {/* Question content */}
       {/* <ParseHTML data={result.content} />
