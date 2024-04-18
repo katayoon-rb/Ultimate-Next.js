@@ -33,7 +33,7 @@ const Profile = ({ clerkId, user }: Props) => {
   const form = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      name: parsedUser.name || parsedUser.username || "",
+      name: parsedUser.name || "",
       username: parsedUser.username || "",
       portfolioWebsite: parsedUser.portfolioWebsite || "",
       bio: parsedUser.bio || "",
@@ -43,11 +43,11 @@ const Profile = ({ clerkId, user }: Props) => {
   // Submit Form Handler.
   async function onSubmit(values: z.infer<typeof ProfileSchema>) {
     setIsSubmitting(true);
-
     try {
       await updateUser({
         clerkId,
         updateData: {
+          name: values.name,
           username: values.username,
           portfolioWebsite: values.portfolioWebsite,
           bio: values.bio,
@@ -68,6 +68,27 @@ const Profile = ({ clerkId, user }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='mt-9 flex w-full flex-col gap-9'
       >
+        {/* Name */}
+        <FormField
+          control={form.control}
+          name='name'
+          render={({ field }) => (
+            <FormItem className='space-y-3.5'>
+              <FormLabel className='paragraph-semibold text-dark400_light800'>
+                Name <span className='text-primary-500'>*</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  placeholder='Your name'
+                  className='no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px]'
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         {/* Username */}
         <FormField
           control={form.control}

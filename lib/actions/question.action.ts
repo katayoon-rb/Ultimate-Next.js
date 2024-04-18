@@ -66,7 +66,6 @@ export async function getQuestions(params: GetQuestionsParams) {
 export async function createQuestion(params: CreateQuestionParams) {
   try {
     connectToDatabase();
-    // eslint-disable-next-line no-unused-vars
     const { title, content, tags, author, path } = params;
     const question = await Question.create({ title, content, author });
     const tagDocuments = [];
@@ -74,16 +73,13 @@ export async function createQuestion(params: CreateQuestionParams) {
     for (const tag of tags) {
       const existingTag = await Tag.findOneAndUpdate(
         {
-          // find something
           name: { $regex: new RegExp(`^${tag}$`, "i") },
         },
         {
-          // do something on it
           $setOnInsert: { name: tag },
           $push: { questions: question._id },
         },
         {
-          // additional options
           upsert: true,
           new: true,
         }
@@ -91,12 +87,10 @@ export async function createQuestion(params: CreateQuestionParams) {
       tagDocuments.push(existingTag._id);
     }
 
-    // Update the question
     await Question.findByIdAndUpdate(question._id, {
       $push: { tags: { $each: tagDocuments } },
     });
 
-    // Create an interaction record for the user's ask_question action
     await Interaction.create({
       user: author,
       action: "ask_question",
@@ -104,10 +98,7 @@ export async function createQuestion(params: CreateQuestionParams) {
       tags: tagDocuments,
     });
 
-    // +5 points for author because of a question
-    // await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } });
-
-    // Purge cached data on-demand
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } });
     revalidatePath(path);
   } catch (error) {
     console.error(`❌ ${error} ❌`);
