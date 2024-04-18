@@ -20,16 +20,16 @@ import {
 export async function getQuestions(params: GetQuestionsParams) {
   try {
     connectToDatabase();
-    // const { searchQuery, filter, page = 1, pageSize = 20 } = params;
+    const { searchQuery } = params;
     // const skipAmount = (page - 1) * pageSize;
 
-    // const query: FilterQuery<typeof Question> = {};
-    // if (searchQuery) {
-    //   query.$or = [
-    //     { title: { $regex: new RegExp(searchQuery, "i") } },
-    //     { content: { $regex: new RegExp(searchQuery, "i") } },
-    //   ];
-    // }
+    const query: FilterQuery<typeof Question> = {};
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, "i") } },
+        { content: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
 
     // let sortOptions = {};
     // switch (filter) {
