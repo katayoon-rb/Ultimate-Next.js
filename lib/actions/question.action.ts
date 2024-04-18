@@ -46,17 +46,17 @@ export async function getQuestions(params: GetQuestionsParams) {
         break;
     }
 
-    const questions = await Question.find()
+    const questions = await Question.find(query)
       .populate({ path: "tags", model: Tag })
       .populate({ path: "author", model: User })
       .skip(skipAmount)
       .limit(pageSize)
-      .sort({ createdAt: -1 });
+      .sort(sortOptions);
 
     const totalQuestions = await Question.countDocuments(query);
     const isNext = totalQuestions > skipAmount + questions.length;
-    console.log(isNext, sortOptions);
-    return { questions };
+
+    return { questions, isNext };
   } catch (error) {
     console.error(`❌ ${error} ❌`);
     throw error;
