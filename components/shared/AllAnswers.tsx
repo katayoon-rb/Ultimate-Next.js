@@ -4,8 +4,8 @@ import { getAnswers } from "@/lib/actions/answer.action";
 import Link from "next/link";
 import Image from "next/image";
 import { getTimestamp } from "@/lib/utils";
-import ParseHTML from "./ParseHTML";
-import Votes from "./Votes";
+// import ParseHTML from "./ParseHTML";
+// import Votes from "./Votes";
 // import Pagination from './Pagination';
 
 interface Props {
@@ -63,7 +63,7 @@ const AllAnswers = async ({
               </Link>
 
               <div className='flex justify-end'>
-                <Votes
+                {/* <Votes
                   type='Answer'
                   itemId={JSON.stringify(answer._id)}
                   userId={JSON.stringify(userId)}
@@ -71,11 +71,11 @@ const AllAnswers = async ({
                   hasUpvoted={answer.upvotes.includes(userId)}
                   downvotes={answer.downvotes.length}
                   hasDownvoted={answer.downvotes.includes(userId)}
-                />
+                /> */}
               </div>
             </div>
 
-            <ParseHTML data={answer.content} />
+            {/* <ParseHTML data={answer.content} /> */}
           </article>
         ))}
       </div>
