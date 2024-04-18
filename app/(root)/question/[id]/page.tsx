@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { URLProps } from "@/types";
 import { auth } from "@clerk/nextjs";
+import Votes from "@/components/shared/Votes";
 // import Answer from "@/components/forms/Answer";
 // import AllAnswers from "@/components/shared/AllAnswers";
 // import ParseHTML from "@/components/shared/ParseHTML";
-// import Votes from "@/components/shared/Votes";
 // import Metric from "@/components/shared/Metric";
 // import RenderTag from "@/components/shared/RenderTag";
 import { getQuestionById } from "@/lib/actions/question.action";
@@ -31,7 +31,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
           >
             <Image
               src={result.author.picture}
-              alt={result.author.name}
+              alt={`${result.author.username} picture`}
               width={22}
               height={22}
               className='rounded-full'
@@ -41,7 +41,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
             </p>
           </Link>
 
-          {/* <div className='flex justify-end'>
+          <div className='flex justify-end'>
             <Votes
               type='Question'
               itemId={JSON.stringify(result._id)}
@@ -52,12 +52,12 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
               hasDownvoted={result.downvotes.includes(mongoUser?._id)}
               hasSaved={mongoUser?.saved.includes(result._id)}
             />
-          </div> */}
+          </div>
         </div>
 
-        {/* <h2 className='h2-semibold text-dark200_light900 mt-3.5 w-full text-left'>
+        <h2 className='h2-semibold text-dark200_light900 mt-3.5 w-full text-left'>
           {result.title}
-        </h2> */}
+        </h2>
       </div>
 
       {/* <div className='mb-8 mt-5 flex flex-wrap gap-4'>
