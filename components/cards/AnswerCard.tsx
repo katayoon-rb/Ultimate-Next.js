@@ -15,6 +15,7 @@ interface Props {
     _id: string;
     clerkId: string;
     name: string;
+    username: string;
     picture: string;
   };
   upvotes: number;
