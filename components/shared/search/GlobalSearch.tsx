@@ -4,15 +4,13 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-// import GlobalResult from "./GlobalResult";
+import GlobalResult from "./GlobalResult";
 
 const GlobalSearch = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const query = searchParams.get("q");
-
   const searchContainerRef = useRef(null);
 
   const [search, setSearch] = useState(query || "");
@@ -29,12 +27,10 @@ const GlobalSearch = () => {
         setSearch("");
       }
     };
-
     setIsOpen(false);
     setSearch("");
 
     document.addEventListener("click", handleOutsideClick);
-
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
@@ -43,26 +39,26 @@ const GlobalSearch = () => {
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (search) {
-        const newUrl = formUrlQuery({
-          params: searchParams.toString(),
-          key: "global",
-          value: search,
-        });
-
-        router.push(newUrl, { scroll: false });
-      } else {
-        // if the query exists
-        if (query) {
-          const newUrl = removeKeysFromQuery({
+        router.push(
+          formUrlQuery({
             params: searchParams.toString(),
-            keysToRemove: ["global", "type"],
-          });
-
-          router.push(newUrl, { scroll: false });
+            key: "global",
+            value: search,
+          }),
+          { scroll: false }
+        );
+      } else {
+        if (query) {
+          router.push(
+            removeKeysFromQuery({
+              params: searchParams.toString(),
+              keysToRemove: ["global", "type"],
+            }),
+            { scroll: false }
+          );
         }
       }
     }, 500);
-
     return () => clearTimeout(delayDebounceFn);
   }, [search, pathname, router, searchParams, query]);
 
@@ -93,7 +89,7 @@ const GlobalSearch = () => {
         />
       </div>
 
-      {/* {isOpen && <GlobalResult />} */}
+      {isOpen && <GlobalResult />}
     </div>
   );
 };
