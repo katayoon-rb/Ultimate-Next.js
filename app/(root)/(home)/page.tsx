@@ -18,7 +18,7 @@ import { auth } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Home | Dev Overflow",
-  description: "Dev Overflow is a community of developers. Join us!",
+  description: "Dev Overflow is a community of developers. Join us",
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
@@ -33,10 +33,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         page: searchParams.page ? +searchParams.page : 1,
       });
     } else {
-      result = {
-        questions: [],
-        isNext: false,
-      };
+      result = { questions: [], isNext: false };
     }
   } else {
     result = await getQuestions({
@@ -67,7 +64,6 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           otherClasses='flex-1'
         />
 
-        {/* Filter in Mobile */}
         <Filter
           filters={HomePageFilters}
           otherClasses='min-h-[56px] sm:min-w-[170px]'
@@ -75,7 +71,6 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         />
       </div>
 
-      {/* Filter in Desktop */}
       <HomeFilters />
 
       {/* Questions */}
@@ -109,12 +104,12 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       </div>
 
       {/* Pagination */}
-      {/* <div className='mt-10'>
-        <Pagination
+      <div className='mt-10'>
+        {/* <Pagination
           pageNumber={searchParams?.page ? +searchParams.page : 1}
           isNext={result.isNext}
-        />
-      </div> */}
+        /> */}
+      </div>
     </>
   );
 }
