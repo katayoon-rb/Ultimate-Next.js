@@ -9,18 +9,17 @@ import { HomePageFilters } from "@/constants/filters";
 import {
   getQuestions,
   getRecommendedQuestions,
-  // getRecommendedQuestions,
 } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
-// import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs";
 
-// export const metadata: Metadata = {
-//   title: "Home | Dev Overflow",
-//   description: "Dev Overflow is a community of developers. Join us",
-// };
+export const metadata: Metadata = {
+  title: "Home | Dev Overflow",
+  description: "Dev Overflow is a community of developers. Join us!",
+};
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth();

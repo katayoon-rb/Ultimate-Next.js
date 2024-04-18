@@ -23,7 +23,7 @@ const UserCard = async ({ user }: Props) => {
         <Link href={`/profile/${user.clerkId}`}>
           <Image
             src={user.picture}
-            alt={user.name}
+            alt={`${user.username} picture`}
             width={100}
             height={100}
             className='rounded-full'
@@ -34,11 +34,8 @@ const UserCard = async ({ user }: Props) => {
         <Link href={`/profile/${user.clerkId}`}>
           <div className='mt-4 text-center'>
             <h3 className='h3-bold text-dark200_light900 line-clamp-1'>
-              {user.name}
+              {user.username}
             </h3>
-            <p className='body-regular text-dark500_light500 mt-2'>
-              @{user.username}
-            </p>
           </div>
         </Link>
 
