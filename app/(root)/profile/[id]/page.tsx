@@ -28,7 +28,6 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             height={140}
             className='rounded-full object-cover'
           />
-          <div>{userInfo.user}</div>
           <div>{userInfo.user.picture}</div>
 
           <div className='mt-3'>
