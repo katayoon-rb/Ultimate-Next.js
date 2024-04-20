@@ -26,9 +26,11 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             alt='profile picture'
             width={140}
             height={140}
-            className='rounded-full object-cover'
+            layout='responsive'
+            priority={true}
+            objectFit='cover'
+            className='rounded-full'
           />
-          <div>{userInfo.user.picture}</div>
 
           <div className='mt-3'>
             <h2 className='h2-bold text-dark100_light900'>
