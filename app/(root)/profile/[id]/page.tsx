@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import { URLProps } from "@/types";
 import { SignedIn, auth } from "@clerk/nextjs";
-import Image from "next/image";
 import Link from "next/link";
 
 import { getJoinedDate } from "@/lib/utils";
@@ -21,7 +21,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
     <>
       <div className='flex w-full flex-col-reverse items-start justify-between sm:flex-row'>
         <div className='flex flex-col items-start gap-4 lg:flex-row'>
-          <Image
+          <img
             src={userInfo.user.picture}
             alt='profile picture'
             width={140}
