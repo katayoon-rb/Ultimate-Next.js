@@ -51,15 +51,24 @@ export async function POST(req: Request) {
 
   // Created User
   if (eventType === "user.created") {
-    const { id, email_addresses, image_url, username, first_name, last_name } =
-      evt.data;
+    const {
+      id,
+      email_addresses,
+      profile_image_url,
+      has_image,
+      username,
+      first_name,
+      last_name,
+    } = evt.data;
 
     const mongoUser = await createUser({
       clerkId: id,
       name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
       username: username!,
       email: email_addresses[0].email_address,
-      picture: image_url,
+      picture: has_image
+        ? profile_image_url
+        : "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg",
     });
 
     return NextResponse.json({ message: "Received", user: mongoUser });
