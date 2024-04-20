@@ -71,8 +71,6 @@ export async function POST(req: Request) {
         : "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg",
     });
 
-    console.log(profile_image_url);
-    console.log(mongoUser.picture);
     return NextResponse.json({ message: "Received", user: mongoUser });
   }
 
