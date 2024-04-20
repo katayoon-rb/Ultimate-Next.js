@@ -1,4 +1,4 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
 interface Props {
@@ -22,7 +22,7 @@ const Metric = ({
 }: Props) => {
   const metricContent = (
     <>
-      <Image
+      <img
         src={imgUrl}
         alt={alt}
         width={16}

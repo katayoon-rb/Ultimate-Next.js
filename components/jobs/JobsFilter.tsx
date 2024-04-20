@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Country } from "@/types";
 import {
@@ -44,7 +44,7 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
 
       <Select onValueChange={(value) => handleUpdateParams(value)}>
         <SelectTrigger className='body-regular light-border background-light800_dark300 text-dark500_light700 line-clamp-1 flex min-h-[56px] items-center gap-3 border p-4 sm:max-w-[210px]'>
-          <Image
+          <img
             src='/assets/icons/carbon-location.svg'
             alt='location'
             width={18}

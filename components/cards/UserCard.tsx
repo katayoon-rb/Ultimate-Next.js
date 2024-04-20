@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import { getTopInteractedTags } from "@/lib/actions/tag.action";
-import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import RenderTag from "../shared/RenderTag";
@@ -21,7 +21,7 @@ const UserCard = async ({ user }: Props) => {
     <div className='shadow-light100_darknone w-full max-sm:w-full xs:w-[260px]'>
       <article className='background-light900_dark200 light-border flex w-full flex-col items-center justify-center rounded-2xl border p-8'>
         <Link href={`/profile/${user.clerkId}`}>
-          <Image
+          <img
             src={user.picture}
             alt={`${user.username} picture`}
             width={100}

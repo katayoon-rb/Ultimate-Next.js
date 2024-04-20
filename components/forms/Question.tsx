@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useRef, useState } from "react";
-import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { Editor } from "@tinymce/tinymce-react";
 import { useForm } from "react-hook-form";
@@ -244,7 +244,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
                           >
                             {tag}
                             {type !== "edit" && (
-                              <Image
+                              <img
                                 src='/assets/icons/close.svg'
                                 alt='close icon'
                                 width={12}

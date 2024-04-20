@@ -1,4 +1,4 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
 interface ProfileLinkProps {
@@ -10,7 +10,7 @@ interface ProfileLinkProps {
 const ProfileLink = ({ imgUrl, href, title }: ProfileLinkProps) => {
   return (
     <div className='flex-center gap-1'>
-      <Image src={imgUrl} alt='icon' width={20} height={20} />
+      <img src={imgUrl} alt='icon' width={20} height={20} />
 
       {href ? (
         <Link

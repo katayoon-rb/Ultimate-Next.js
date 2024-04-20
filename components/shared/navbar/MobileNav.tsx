@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import Image from "next/image";
 import {
   Sheet,
   SheetClose,
@@ -31,7 +31,7 @@ const NavContent = () => {
                   : "text-dark300_light900"
               } flex items-center justify-start gap-4 bg-transparent p-4`}
             >
-              <Image
+              <img
                 src={item.imgURL}
                 alt={item.label}
                 width={20}
@@ -53,7 +53,7 @@ const MobileNav = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Image
+        <img
           src='/assets/icons/hamburger.svg'
           alt='menu'
           width={36}

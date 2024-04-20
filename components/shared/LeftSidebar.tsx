@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { sidebarLinks } from "@/constants/constants";
 import { SignedOut, useAuth } from "@clerk/nextjs";
@@ -36,7 +37,7 @@ const LeftSidebar = () => {
                   : "text-dark300_light900"
               } flex items-center justify-start gap-4 bg-transparent p-4`}
             >
-              <Image
+              <img
                 src={item.imgURL}
                 alt={item.label}
                 width={20}

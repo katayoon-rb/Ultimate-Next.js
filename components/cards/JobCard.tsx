@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable camelcase */
 import Link from "next/link";
-import Image from "next/image";
 import { processJobTitle } from "@/lib/utils";
 import { Job } from "@/types";
 
@@ -17,7 +17,7 @@ const JobLocation = ({
 }: JobLocationProps) => {
   return (
     <div className='background-light800_dark400 flex items-center justify-end gap-2 rounded-2xl px-3 py-1.5'>
-      <Image
+      <img
         src={`https://flagsapi.com/${job_country}/flat/64.png`}
         alt='country symbol'
         width={16}
@@ -63,15 +63,14 @@ const JobCard = ({ job }: { job: Job }) => {
             href={employer_website ?? "/jobs"}
             className='background-light800_dark400 relative size-16 rounded-xl'
           >
-            <Image
+            <img
               src={employer_logo}
               alt='company logo'
-              fill
               className='size-full object-contain p-2'
             />
           </Link>
         ) : (
-          <Image
+          <img
             src='/assets/images/site-logo.svg'
             alt='default site logo'
             width={64}
@@ -103,7 +102,7 @@ const JobCard = ({ job }: { job: Job }) => {
         <div className='flex-between mt-8 flex-wrap gap-6'>
           <div className='flex flex-wrap items-center gap-6'>
             <div className='flex items-center gap-2'>
-              <Image
+              <img
                 src='/assets/icons/clock-2.svg'
                 alt='clock'
                 width={20}
@@ -116,7 +115,7 @@ const JobCard = ({ job }: { job: Job }) => {
             </div>
 
             <div className='flex items-center gap-2'>
-              <Image
+              <img
                 src='/assets/icons/currency-dollar-circle.svg'
                 alt='dollar symbol'
                 width={20}
@@ -134,7 +133,7 @@ const JobCard = ({ job }: { job: Job }) => {
           >
             <p className='body-semibold primary-text-gradient'>View job</p>
 
-            <Image
+            <img
               src='/assets/icons/arrow-up-right.svg'
               alt='arrow up right'
               width={20}

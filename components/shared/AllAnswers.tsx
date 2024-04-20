@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { AnswerFilters } from "@/constants/filters";
 import Filter from "./Filter";
 import { getAnswers } from "@/lib/actions/answer.action";
 import Link from "next/link";
-import Image from "next/image";
 import { getTimestamp } from "@/lib/utils";
 import Votes from "./Votes";
 import ParseHTML from "./ParseHTML";
@@ -44,7 +44,7 @@ const AllAnswers = async ({
                 href={`/profile/${answer.author.clerkId}`}
                 className='flex flex-1 items-start gap-1 sm:items-center'
               >
-                <Image
+                <img
                   src={answer.author.picture}
                   alt='profile'
                   width={18}

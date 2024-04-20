@@ -1,4 +1,4 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { URLProps } from "@/types";
 import { auth } from "@clerk/nextjs";
@@ -28,7 +28,7 @@ const QuestionDetail = async ({ params, searchParams }: URLProps) => {
             href={`/profile/${result.author.clerkId}`}
             className='flex items-center justify-start gap-1'
           >
-            <Image
+            <img
               src={result.author.picture}
               alt={`${result.author.name} picture`}
               width={22}
